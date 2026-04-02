@@ -28,7 +28,7 @@ Open a terminal in this folder, then use the command for your OS.
 ### macOS / Linux
 
 ```bash
-chmod +x linux_mac.sh
+chmod +x linux_mac.sh # Run this to give execute permission to the script
 ./linux_mac.sh
 ```
 
