@@ -1,48 +1,38 @@
 # CS 240 Valgrind Environment
 
-This project provides a simple Docker-based Linux environment for compiling C programs and checking memory leaks with Valgrind.
+A Linux environment with `gcc` and `valgrind` that runs on any OS (macOS, Windows, Linux) through Docker.
 
-## What is included
+## Quick start
 
-The container image installs:
+1. **Install [Docker Desktop](https://www.docker.com/products/docker-desktop/)** (only once). You don't need to open it, the script does that for you.
+2. **Copy 2 files into the folder with your `.c` files:**
+   - macOS / Linux: `linux_mac.sh` and `Dockerfile`
+   - Windows: `windows.bat` and `Dockerfile`
+3. **Open a terminal in that folder and run the script:**
 
-- `gcc`
-- `valgrind`
+   macOS / Linux:
+   ```bash
+   bash linux_mac.sh
+   ```
 
-The working directory inside the container is `/code`, which is mapped to your current local project folder.
+   Windows (Command Prompt; in PowerShell use `.\windows.bat`):
+   ```bat
+   windows.bat
+   ```
 
-## Prerequisites
-
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running
-
-## Files in this repo
-
-- `linux_mac.sh`: launcher script for macOS/Linux
-- `windows.bat`: launcher script for Windows (`cmd`)
-- `Dockerfile`: defines the Linux environment
-
-## Start the environment
-
-Open a terminal in this folder, then use the command for your OS.
-
-### macOS / Linux
-
-```bash
-chmod +x linux_mac.sh # Run this to give execute permission to the script
-./linux_mac.sh
+You are now inside Linux. The prompt changes to:
 ```
-
-### Windows (Command Prompt)
-
-```bat
-windows.bat
+[cs240-linux] /code $
 ```
+The folder where the script is shows up here as `/code`. Type `ls` to see your files.
 
-After the script finishes, you will be inside a Linux shell in the container.
+> The first run takes 1-3 minutes to build the environment. After that it starts in seconds.
+
+Want to try it first? This repo already has `problem1.c`, an example with a memory leak. Run the script right here.
 
 ## Compile and run your C code
 
-Inside the container:
+Inside Linux:
 
 ```bash
 gcc -g myprog.c -o myprog
@@ -64,12 +54,7 @@ Recommended first check:
 - Look at `definitely lost` in `LEAK SUMMARY`.
 - Goal: `definitely lost: 0 bytes`.
 
-## Where to place your code
-
-Put your `.c` files in this project folder (or subfolders).  
-The scripts mount your current local directory into `/code` in the container, so files are shared automatically.
-
-## Exit the container
+## Exit Linux
 
 Type:
 
@@ -77,4 +62,34 @@ Type:
 exit
 ```
 
-The container is started with `--rm`, so it is removed automatically when you exit.
+The container is removed automatically when you exit. Your files are **not** deleted: they live in your folder on your computer.
+
+## Troubleshooting
+
+**"Docker is not installed"**
+Install [Docker Desktop](https://www.docker.com/products/docker-desktop/) and restart your terminal.
+
+**"Docker did not start"**
+Open Docker Desktop yourself and wait until it says *Engine running*. The first time, it may ask you to accept terms or sign in (you can skip signing in). Then run the script again.
+
+**Windows: Docker Desktop complains about WSL**
+Open PowerShell as administrator, run `wsl --install`, restart your computer and open Docker Desktop again.
+
+**Windows: "Virtualization support not detected"**
+Virtualization is disabled in your BIOS. Search for how to enable "Intel VT-x" or "AMD-V" on your computer model.
+
+**I don't see my files with `ls`**
+The script shares the folder it is in. Make sure your `.c` files are in the same folder as the script. Files you add while Linux is running show up right away.
+
+**"Dockerfile not found"**
+Copy the `Dockerfile` into the same folder as the script.
+
+**"Permission denied" when running `./linux_mac.sh`**
+Run it with `bash linux_mac.sh` instead.
+
+## Files in this repo
+
+- `linux_mac.sh`: launcher script for macOS/Linux
+- `windows.bat`: launcher script for Windows (`cmd`)
+- `Dockerfile`: defines the Linux environment
+- `problem1.c`: example program with a memory leak

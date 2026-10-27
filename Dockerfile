@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
     valgrind \
     && rm -rf /var/lib/apt/lists/*
 
+# Custom prompt to tell you are inside Linux: "[cs240-linux] /code $"
+RUN printf '%s\n' 'PS1="\[\033[1;32m\][cs240-linux]\[\033[0m\] \w \$ "' >> /root/.bashrc
+
 # Set the working directory inside the container
 WORKDIR /code
 
