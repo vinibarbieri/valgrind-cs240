@@ -28,7 +28,13 @@ The folder where the script is shows up here as `/code`. Type `ls` to see your f
 
 > The first run takes 1-3 minutes to build the environment. After that it starts in seconds.
 
-Want to try it first? This repo already has `problem1.c`, an example with a memory leak. Run the script right here.
+Want to try it first? This repo has a `demo/` folder with small C programs from class. Run the script right here, then:
+
+```bash
+cd demo
+gcc -g 01_leak.c -o 01_leak
+valgrind --leak-check=full ./01_leak
+```
 
 ## Compile and run your C code
 
@@ -92,4 +98,4 @@ Run it with `bash linux_mac.sh` instead.
 - `linux_mac.sh`: launcher script for macOS/Linux
 - `windows.bat`: launcher script for Windows (`cmd`)
 - `Dockerfile`: defines the Linux environment
-- `problem1.c`: example program with a memory leak
+- `demo/`: example C programs used in class to try Valgrind
