@@ -1,4 +1,4 @@
-// Demo 1: every malloc need a matching free.
+// Demo 1 (memory leak): make_squares mallocs an array of n squares (0 1 4 9 16), main prints it and must free it.
 #include <stdio.h>
 #include <stdlib.h>
 

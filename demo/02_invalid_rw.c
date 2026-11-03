@@ -1,4 +1,4 @@
-// Demo 2: valid indexes are 0 .. n-1, so the last valid pointer is a + n - 1.
+// Demo 2 (invalid read/write): fills an array of n ints with 1 using a pointer, then sums it. Valid: a .. a + n - 1.
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,7 +6,7 @@ int main(void) {
     int n = 3;
     int *a = (int *)malloc(n * sizeof(int));
 
-    for (int *p = a; p = a + n; p++) {   // FIX: < instead of <=
+    for (int *p = a; p <= a + n; p++) {    // FIX: < instead of <=
         *p = 1;
     }
 

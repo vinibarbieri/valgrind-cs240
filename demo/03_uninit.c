@@ -1,4 +1,4 @@
-// Demo 3 (fixed): every element is written before it is read.
+// Demo 3 (uninitialised value): fills n grades with 90, sums them and prints whether the class average is an A.
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -6,7 +6,7 @@ int main(void) {
     int n = 5;
     int *grades = (int *)malloc(n * sizeof(int));
 
-    for (int i = 0; i < n-1; i++) {        // FIX: fill all n elements (or use calloc)
+    for (int i = 0; i < n-1; i++) {        // FIX: fill all n elements
         *(grades + i) = 90;
     }
 

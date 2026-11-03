@@ -1,4 +1,4 @@
-// Demo 4 (fixed): use the memory first, free it last.
+// Demo 4 (use after free): stores 3 scores on the heap, prints the first one, then frees the array.
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,7 +10,8 @@ int main(void) {
 
     printf("First score: %d\n", *scores);
 
-    free(scores);    // FIX: free after the last use
-    scores = NULL;   // good habit: a later mistake becomes a clear crash, not garbage
+    free(scores);  
+    // printf("First score: %d\n", *scores);   // BUG: reads memory that was already freed
+
     return 0;
 }
