@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 int main(void) {
-    int n = 3;
+    int n;  scanf("%d", &n);
     int *a = (int *)malloc(n * sizeof(int));
 
     for (int *p = a; p <= a + n; p++) {    // FIX: < instead of <=
